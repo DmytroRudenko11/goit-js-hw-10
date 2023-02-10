@@ -3,8 +3,8 @@ import { fetchCountries } from './fetchCountries';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 
-const container = document.querySelector('.country-info');
-const resultList = document.querySelector('.country-list');
+export const container = document.querySelector('.country-info');
+export const resultList = document.querySelector('.country-list');
 const input = document.querySelector('#search-box');
 
 const DEBOUNCE_DELAY = 300;
@@ -53,12 +53,16 @@ function onSearch(e) {
 
 function renderResult(searchResult) {
   if (searchResult.length >= 10) {
+    container.textContent = '';
+    resultList.textContent = '';
     return Notiflix.Notify.warning(
       'Too many matches found. Please enter a more specific name.'
     );
-  } else if (searchResult.length >= 2) {
+  }
+  if (searchResult.length >= 2) {
     renderCountriesList(searchResult);
-  } else if (searchResult.length === 1) {
+  }
+  if (searchResult.length === 1) {
     renderCountryInfo(searchResult);
   }
 }
